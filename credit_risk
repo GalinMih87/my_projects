@@ -1,0 +1,28 @@
+age_checker = input()
+income_checker = input()
+ 
+age_risk = 0
+income_risk = 0
+ 
+if age_checker == "child":
+    age_risk = 1
+elif age_checker == "teenager":
+    age_risk = 0.6
+elif age_checker == "adult":
+    age_risk = 0.1
+elif age_checker == "elder":
+    age_risk = 0.2
+else:
+    "error"
+if income_checker == "low":
+    income_risk = 0.5
+elif income_checker == "mid":
+    income_risk = 0.3
+elif income_checker == "high":
+    income_risk = 0.1
+else:
+    "error"
+ 
+credit_risk = age_risk + income_risk - (age_risk * income_risk)
+ 
+print(f'{round(credit_risk * 100)}%')
