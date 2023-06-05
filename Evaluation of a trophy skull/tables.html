@@ -1,20 +1,60 @@
 <html>
-    <head>
-    <h1>Оценка на трофей от череп на хищник</h1>
-    <title>Оценка на ловни трофеи</title>
+<head>
+    <div style="background-color: rgb(238, 238, 82);">            
+    <title>Оценка на череп на хищник</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: lightgray;
+        }
+    </style>
     <script src="calcSum.js"></script>
-    </head>
-    <form>
-        Дължина на черепа в сантиметри: <input type="text" id="num1" /> <br>
-        Коефициент за дължина на черепа: <input type="text" id="coefficient1" /> <br>
-        <br />
-        Ширината на черепа в сантиметри: <input type="text" id="num2" /> <br>
-        Коефициент за широчина на черепа: <input type="text" id="coefficient2" /> <br>
-        <br />
-        <i><b><u>Получени точки за дължина:</i></b></u> <input type="text" id="result1" /> <br>
-        <i><b><u>Получени точки за широчина:</i></b></u> <input type="text" id="result2" /> <br>
-        <br />
-        <b>Обща оценка на трофея:</b> <input type="text" id="sum" /> <br>
-        <input type="button" value="Сума" onclick="calcSum()" />
-    </form>
+</head>
+<body>
+    <h1>Оценка на трофей от череп на хищник</h1>
+    <table>
+        <tr>
+            <th>Параметър</th>
+            <th>Стойност</th>
+        </tr>
+        <tr>
+            <td>Дължина на черепа в сантиметри:</td>
+            <td><input type="text" id="num1" /></td>
+        </tr>
+        <tr>
+            <td>Коефициент за дължина на черепа:</td>
+            <td><input type="text" id="coefficient1" /></td>
+        </tr>
+        <tr>
+            <td>Широчина на черепа в сантиметри:</td>
+            <td><input type="text" id="num2" /></td>
+        </tr>
+        <tr>
+            <td>Коефициент за широчина на черепа:</td>
+            <td><input type="text" id="coefficient2" /></td>
+        </tr>
+        <tr>
+            <td><i><b><u>Получени точки за дължина:</u></b></i></td>
+            <td><input type="text" id="result1" /></td>
+        </tr>
+        <tr>
+            <td><i><b><u>Получени точки за широчина:</u></b></i></td>
+            <td><input type="text" id="result2" /></td>
+        </tr>
+        <tr>
+            <td><b>Обща оценка на трофея:</b></td>
+            <td><input type="text" id="sum" /></td>
+        </tr>
+    </table>
+    <br />
+    <input type="button" value="Сума" onclick="calcSum()" />
+    </div>
+</body>
 </html>
+
