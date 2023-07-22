@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SoftUni Student="Galin Mihaylov"> 
+	<Course>Python basic</Course> 
+	    <Practice_Assessment></Practice_Assessment>
+	    <Theory_Assessmen></Theory_Assessmen>
+	    <skill></skill>
+	    <credits></credits>
+	    <h:certificate xmlns:h="http://www.w3.org/TR/html4/"></h:certificate>
+	    <comment></comment><!-- This is a comment -->
+
+	<Course>QA</Course> 
+	    <Practice_Assessment></Practice_Assessment>
+	    <Theory_Assessmen></Theory_Assessmen>
+	    <skill></skill>
+	    <credits></credits>
+	    <h:certificate xmlns:h="http://www.w3.org/TR/html4/"></h:certificate>
+	<comment></comment><!-- This is a comment -->
+</SoftUni>
