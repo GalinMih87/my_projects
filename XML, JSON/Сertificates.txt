@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SoftUni Student="Galin Mihaylov"> 
 	<Course>Python basic</Course> 
-	    <Practice_Assessment></Practice_Assessment>
-	    <Theory_Assessmen></Theory_Assessmen>
-	    <skill></skill>
-	    <credits></credits>
-	    <h:certificate xmlns:h="http://www.w3.org/TR/html4/"></h:certificate>
+	    <Practice_Assessment>6.00</Practice_Assessment>
+	    <Theory_Assessmen>6.00</Theory_Assessmen>
+	    <Topic_1>First Steps In Coding</Topic_1>
+	    <Topic_2>Conditional Statements</Topic_2>
+	    <Topic_3>Conditional Statements Advanced</Topic_3>
+	    <Topic_4>For-Loop</Topic_4>
+	    <Topic_5>While-Loop</Topic_5>
+	    <Topic_6>Nested Loop</Topic_6>
+	    <certificate xmlns:h="http://shorturl.at/iyVZ1"></certificate>
 	    <comment></comment><!-- This is a comment -->
 
 	<Course>QA</Course> 
-	    <Practice_Assessment></Practice_Assessment>
-	    <Theory_Assessmen></Theory_Assessmen>
-	    <skill></skill>
-	    <credits></credits>
-	    <h:certificate xmlns:h="http://www.w3.org/TR/html4/"></h:certificate>
-	<comment></comment><!-- This is a comment -->
+	    <Practice_Assessment>6.00</Practice_Assessment>
+	    <Theory_Assessmen>6.00</Theory_Assessmen>
+	    <Topic_1>Software Quality Assurance Introduction</Topic_1>
+	    <Topic_2>Bugs and Bug Tracking</Topic_2>
+	    <Topic_3>Test Levels and Test Types</Topic_3>
+	    <Topic_4>Workshop: Full Manual Testing</Topic_4>
+	    <certificate xmlns:h="http://shorturl.at/qNPX4"></certificate>
+	    <comment></comment><!-- This is a comment -->
 </SoftUni>
