@@ -1,0 +1,13 @@
+import json
+
+# json string
+jsonStr =  '{"name":"Tesla", "age":2, "city":"New York"}'
+
+# parse json file
+pythonObj = json.loads(jsonStr)
+name = pythonObj['name']
+print(name)
+age = pythonObj['age']
+print(age)
+city = pythonObj['city']
+print(city)
