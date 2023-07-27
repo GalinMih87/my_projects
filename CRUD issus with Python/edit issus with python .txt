@@ -1,0 +1,35 @@
+import requests
+
+def edit_github_issue(token, owner, repo, issue_number, title, body):
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}"
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    payload = {
+        "title": title,
+        "body": body
+    }
+
+    response = requests.patch(url, headers=headers, json=payload)
+
+    if response.status_code == 200:
+        print("Issue беше успешно редактиран.")
+        print(f"Ново заглавие: {response.json()['title']}")
+        print(f"Нов текст: {response.json()['body']}")
+    else:
+        print("Възникна грешка при редактирането на issue.")
+        print(f"Статус код: {response.status_code}")
+        print(f"Отговор: {response.text}")
+
+if __name__ == "__main__":
+    # Вашият персонален токен за достъп
+    token = "вашият_персонален_токен"
+
+    # Вашите потребителско име, име на репозитория и номер на issue
+    owner = "вашето_потребителско_име"
+    repo = "вашата_репозитория"
+    issue_number = 1  # Номерът на редактираното issue
+    title = "Ново заглавие на issue"
+    body = "Нов текст на issue"
+
+    edit_github_issue(token, owner, repo, issue_number, title, body)

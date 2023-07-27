@@ -1,0 +1,24 @@
+import requests
+
+# Вашето потребителско име и репозитория
+username = "вашето_потребителско_име"
+repository = "вашата_репозитория"
+
+# Вашият персонален токен за достъп
+token = "вашият_персонален_токен"
+
+# Номерата на issue-тата, които искате да изтриете
+issues_to_delete = [1, 2, 3]
+
+for issue_number in issues_to_delete:
+    url = f"https://api.github.com/repos/{username}/{repository}/issues/{issue_number}"
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+
+    response = requests.delete(url, headers=headers)
+
+    if response.status_code == 204:
+        print(f"Issue с номер {issue_number} беше успешно изтрит.")
+    else:
+        print(f"Възникна грешка при изтриването на issue с номер {issue_number}: {response.json()}")

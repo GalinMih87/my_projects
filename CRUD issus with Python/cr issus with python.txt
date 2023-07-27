@@ -1,0 +1,34 @@
+import requests
+
+def create_github_issue(token, owner, repo, title, body):
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    payload = {
+        "title": title,
+        "body": body
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+
+    if response.status_code == 201:
+        print("Issue създаден успешно.")
+        print(f"Номер на issue: {response.json()['number']}")
+        print(f"URL на issue: {response.json()['html_url']}")
+    else:
+        print("Възникна грешка при създаването на issue.")
+        print(f"Статус код: {response.status_code}")
+        print(f"Отговор: {response.text}")
+
+if __name__ == "__main__":
+    # Вашият персонален токен за достъп
+    token = "вашият_персонален_токен"
+
+    # Вашите потребителско име, име на репозитория и заглавие и текст на issue
+    owner = "вашето_потребителско_име"
+    repo = "вашата_репозитория"
+    title = "Заглавие на issue"
+    body = "Текст на issue"
+
+    create_github_issue(token, owner, repo, title, body)
