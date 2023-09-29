@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Калкулатор за инвестиции</title>
+</head>
+<body>
+    <h1>Калкулатор за инвестиции</h1>
+    <form id="investmentForm">
+        <label for="initialDeposit">Начален депозит:</label>
+        <input type="number" id="initialDeposit" required><br><br>
+
+        <label for="annualInterest">Годишна лихва (%):</label>
+        <input type="number" id="annualInterest" required><br><br>
+
+        <label for="period">Период (години):</label>
+        <input type="number" id="period" required><br><br>
+
+        <button type="button" onclick="calculateFutureValue()">Изчисли</button>
+    </form>
+
+    <h2>Резултат:</h2>
+    <p id="result"></p>
+
+    <script>
+        function calculateFutureValue() {
+            // Вземане на въведените стойности от формата
+            var initialDeposit = parseFloat(document.getElementById("initialDeposit").value);
+            var annualInterest = parseFloat(document.getElementById("annualInterest").value);
+            var period = parseInt(document.getElementById("period").value);
+
+            // Изчисление на бъдещата стойност
+            var returnOnInvestment = Math.pow(1 + (annualInterest / 100), period);
+            var futureValue = initialDeposit * returnOnInvestment;
+
+            // Показване на резултата
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = "Бъдещата стойност на вашия депозит след " + period + " години ще бъде: " + futureValue.toFixed(2);
+            resultElement.innerHTML += "<br>Доходът от инвестицията е в размер на: " + (futureValue - initialDeposit).toFixed(2);
+        }
+    </script>
+</body>
+</html>
