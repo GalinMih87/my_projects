@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Бъдеща стойност при анюитети</title>
+</head>
+<body>
+    <h1>Калкулатор бъдеща стойност при множество очаквани парични постъпления (анюитети)</h1>
+    <form id="annuityForm">
+        <label for="initialDeposit">Начален депозит:</label>
+        <input type="number" id="initialDeposit" required><br><br>
+
+        <label for="annualInterest">Годишна лихва (%):</label>
+        <input type="number" id="annualInterest" required><br><br>
+
+        <label for="period">Период (години):</label>
+        <input type="number" id="period" required><br><br>
+
+        <button type="button" onclick="calculateFutureValue()">Изчисли</button>
+    </form>
+
+    <h2>Резултат:</h2>
+    <p id="result"></p>
+
+    <script>
+        function calculateFutureValue() {
+            // Вземане на въведените стойности от формата
+            var initialDeposit = parseFloat(document.getElementById("initialDeposit").value);
+            var annualInterest = parseFloat(document.getElementById("annualInterest").value);
+            var period = parseInt(document.getElementById("period").value);
+
+            // Изчисление на бъдещата стойност на ануитета (депозита)
+            var annuities = ((1 + annualInterest / 100) ** period - 1) / (annualInterest / 100);
+            var futureValue = initialDeposit * annuities;
+
+            // Показване на резултата
+            var resultElement = document.getElementById("result");
+            resultElement.innerHTML = "Бъдещата стойност на вашия депозит след " + period + " години ще бъде: " + futureValue.toFixed(2);
+            resultElement.innerHTML += "<br>Анюитета е равен на: " + annuities.toFixed(4);
+        }
+    </script>
+</body>
+</html>
