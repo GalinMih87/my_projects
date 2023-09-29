@@ -7,4 +7,4 @@ period = int(input("Въведете периода (години): "))
 present_value = future_value / (1 + annual_interest / 100)**period
 
 # Извеждане на резултата
-print(f"Наcтоящата стойност на бъдещия доход е: {present_value:.2f}")
+print(f"Наcтоящата стойност на бъдещия доход от {future_value:.0f} за {period} години при годишна лихва от {annual_interest} % е: {present_value:.2f}")
