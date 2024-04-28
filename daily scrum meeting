@@ -1,3 +1,4 @@
+# Версия 1 - основа
 import random
 
 def generate_random_names(num_names):
@@ -13,3 +14,26 @@ random_names = generate_random_names(15)
 print("Ред на изказване за Daily Scrum Meeting на дата ............... г.:")
 for name in random_names:
     print(name)
+
+
+# Версия 2 - допълнена
+
+import random
+
+# Списък с имена на членовете на екипа
+team_members = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+# Списък с имена, които ще се раздават на членовете на екипа
+names = ["Иван", "Петър", "Мария", "Анна", "Георги", "Никола", "Стефан", "Елена", "Александър", "Ивелина"]
+
+# Разбъркваме имената в списъка
+random.shuffle(names)
+
+# Създаваме речник, който ще съответства на членовете на екипа с техните случайно генерирани имена
+team_names = {member: names[i] for i, member in enumerate(team_members)}
+
+# Извеждане на генерираните имена за всеки член на екипа
+print("Ред на изказване за Daily Scrum Meeting на дата ............... г.:")
+for member, name in team_names.items():
+    
+    print(f"{member}: {name}")
