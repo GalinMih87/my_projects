@@ -37,3 +37,32 @@ print("Ред на изказване за Daily Scrum Meeting на дата ...
 for member, name in team_names.items():
     
     print(f"{member}: {name}")
+
+# Версия 3 - генериране на случайна поредица от имената за всеки ден от спринта
+
+import random
+
+# Списък с имена на членовете на екипа
+team_members = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+# Списък с имена, които ще се раздават на членовете на екипа
+names = ["Иван", "Петър", "Мария", "Анна", "Георги", "Никола", "Стефан", "Елена", "Александър", "Ивелина"]
+
+def generate_sequences(days):
+    sequences = []
+    for _ in range(days):
+        # Разбъркваме имената във всяка итерация
+        random.shuffle(names)
+        # Вземаме случаен избор от имената без повторение
+        sequence = random.sample(names, len(names))
+        sequences.append(sequence)
+    return sequences
+
+# Генериране на 10 последователности за 10 дни
+sequences = generate_sequences(20)
+
+# Извеждане на генерираните имена за всеки ден
+for day, sequence in enumerate(sequences, start=1):
+    print(f"Ден {day}:")
+    for member, name in zip(team_members, sequence):
+        print(f"{member}: {name}")
