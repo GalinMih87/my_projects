@@ -1,0 +1,36 @@
+def calculate_wacc(equity, debt, cost_of_equity, cost_of_debt, tax_rate):
+    """
+    Функция за изчисляване на WACC.
+    :param equity: Стойност на собствения капитал (E)
+    :param debt: Стойност на дълга (D)
+    :param cost_of_equity: Цена на собствения капитал (Re)
+    :param cost_of_debt: Цена на дълга (Rd)
+    :param tax_rate: Данъчна ставка (T)
+    :return: WACC
+    """
+    total_value = equity + debt
+    equity_ratio = equity / total_value
+    debt_ratio = debt / total_value
+    
+    wacc = (equity_ratio * cost_of_equity) + (debt_ratio * cost_of_debt * (1 - tax_rate))
+    return wacc
+
+def main():
+    try:
+        # Въвеждане на данните от потребителя
+        equity = float(input("Въведете стойността на собствения капитал (E): "))
+        debt = float(input("Въведете стойността на дълга (D): "))
+        cost_of_equity = float(input("Въведете цената на собствения капитал (Re) (в десетичен формат, например 0.08 за 8%): "))
+        cost_of_debt = float(input("Въведете цената на дълга (Rd) (в десетичен формат, например 0.05 за 5%): "))
+        tax_rate = float(input("Въведете данъчната ставка (T) (в десетичен формат, например 0.21 за 21%): "))
+
+        # Изчисляване на WACC
+        wacc = calculate_wacc(equity, debt, cost_of_equity, cost_of_debt, tax_rate)
+        
+        print(f"Среднопретеглена цена на капитала (WACC) е: {wacc:.4f}")
+    
+    except ValueError:
+        print("Моля, въведете валидни числови стойности.")
+
+if __name__ == "__main__":
+    main()
