@@ -1,0 +1,35 @@
+def calculate_ebt(revenue, cogs, operating_expenses, interest_expenses):
+    """Calculate EBT (Earnings Before Tax)"""
+    ebt = revenue - cogs - operating_expenses - interest_expenses
+    return ebt
+
+def calculate_ebit(revenue, cogs, operating_expenses):
+    """Calculate EBIT (Earnings Before Interest and Tax)"""
+    ebit = revenue - cogs - operating_expenses
+    return ebit
+
+def calculate_ebitda(revenue, cogs, operating_expenses, depreciation_amortization):
+    """Calculate EBITDA (Earnings Before Interest, Tax, Depreciation, and Amortization)"""
+    ebitda = revenue - cogs - operating_expenses + depreciation_amortization
+    return ebitda
+
+def main():
+    # Get user input for financial data
+    revenue = float(input("Enter total revenue: "))
+    cogs = float(input("Enter cost of goods sold (COGS): "))
+    operating_expenses = float(input("Enter operating expenses: "))
+    interest_expenses = float(input("Enter interest expenses: "))
+    depreciation_amortization = float(input("Enter depreciation and amortization: "))
+
+    # Calculate financial metrics
+    ebt = calculate_ebt(revenue, cogs, operating_expenses, interest_expenses)
+    ebit = calculate_ebit(revenue, cogs, operating_expenses)
+    ebitda = calculate_ebitda(revenue, cogs, operating_expenses, depreciation_amortization)
+
+    # Display results
+    print(f"\nEarnings Before Tax (EBT): {ebt:.2f}")
+    print(f"Earnings Before Interest and Tax (EBIT): {ebit:.2f}")
+    print(f"Earnings Before Interest, Tax, Depreciation, and Amortization (EBITDA): {ebitda:.2f}")
+
+if __name__ == "__main__":
+    main()
