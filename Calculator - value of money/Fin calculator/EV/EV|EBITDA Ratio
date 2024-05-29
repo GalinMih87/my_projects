@@ -1,0 +1,31 @@
+""""Измерва стойността на компанията спрямо нейната EBITDA. 
+Изчислява се като пазарната капитализация плюс нетния дълг, разделени на EBITDA."""
+
+class FinancialRatios:
+    def __init__(self, market_cap, net_debt, ebitda):
+        self.market_cap = market_cap
+        self.net_debt = net_debt
+        self.ebitda = ebitda
+
+    def calculate_ev_ebitda_ratio(self):
+        enterprise_value = self.market_cap + self.net_debt
+        if self.ebitda == 0:
+            return float('inf')  # Avoid division by zero
+        return enterprise_value / self.ebitda
+
+def main():
+    try:
+        market_cap = float(input("Въведете пазарната капитализация: "))
+        net_debt = float(input("Въведете нетния дълг: "))
+        ebitda = float(input("Въведете EBITDA: "))
+        
+        ratios = FinancialRatios(market_cap, net_debt, ebitda)
+
+        ev_ebitda_ratio = ratios.calculate_ev_ebitda_ratio()
+
+        print(f"EV/EBITDA Ratio: {ev_ebitda_ratio:.2f}")
+    except ValueError:
+        print("Моля, въведете валидни числови стойности.")
+
+if __name__ == "__main__":
+    main()
