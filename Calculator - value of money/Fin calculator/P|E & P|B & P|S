@@ -1,0 +1,43 @@
+class FinancialRatios:
+    def __init__(self, current_price, eps, book_value_per_share, revenue_per_share):
+        self.current_price = current_price
+        self.eps = eps
+        self.book_value_per_share = book_value_per_share
+        self.revenue_per_share = revenue_per_share
+
+    def calculate_pe_ratio(self):
+        if self.eps == 0:
+            return float('inf')  # Avoid division by zero
+        return self.current_price / self.eps
+
+    def calculate_pb_ratio(self):
+        if self.book_value_per_share == 0:
+            return float('inf')  # Avoid division by zero
+        return self.current_price / self.book_value_per_share
+
+    def calculate_ps_ratio(self):
+        if self.revenue_per_share == 0:
+            return float('inf')  # Avoid division by zero
+        return self.current_price / self.revenue_per_share
+
+def main():
+    try:
+        current_price = float(input("Въведете текущата цена на акцията: "))
+        eps = float(input("Въведете печалбата на акцията (EPS): "))
+        book_value_per_share = float(input("Въведете счетоводната стойност на акцията: "))
+        revenue_per_share = float(input("Въведете приходите на акцията: "))
+        
+        ratios = FinancialRatios(current_price, eps, book_value_per_share, revenue_per_share)
+
+        pe_ratio = ratios.calculate_pe_ratio()
+        pb_ratio = ratios.calculate_pb_ratio()
+        ps_ratio = ratios.calculate_ps_ratio()
+
+        print(f"P/E Ratio: {pe_ratio:.2f}")
+        print(f"P/B Ratio: {pb_ratio:.2f}")
+        print(f"P/S Ratio: {ps_ratio:.2f}")
+    except ValueError:
+        print("Моля, въведете валидни числови стойности.")
+
+if __name__ == "__main__":
+    main()
