@@ -1,0 +1,29 @@
+def project_completion_ratio(completed_projects, planned_projects):
+    """
+    Функция за изчисляване на Коефициент на завършени проекти (Project Completion Ratio).
+
+    Параметри:
+    completed_projects (int): Брой завършени проекти.
+    planned_projects (int): Брой планирани проекти.
+
+    Връща:
+    float: Коефициент на завършени проекти в проценти.
+    """
+    if planned_projects == 0:
+        return "Броят на планираните проекти не може да бъде нула."
+
+    completion_ratio = (completed_projects / planned_projects) * 100
+
+    return completion_ratio
+
+# Въвеждане на данни от потребителя
+try:
+    completed_projects = int(input("Въведете броя на завършените проекти: "))
+    planned_projects = int(input("Въведете броя на планираните проекти: "))
+    
+    ratio = project_completion_ratio(completed_projects, planned_projects)
+    print(f"Коефициент на завършени проекти: {ratio:.2f}%")
+except ValueError:
+    print("Моля, въведете валидни числови стойности.")
+except Exception as e:
+    print(f"Възникна грешка: {e}")
