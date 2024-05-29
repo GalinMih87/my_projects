@@ -1,0 +1,46 @@
+def return_on_assets(net_income, total_assets):
+    """
+    Изчислява възвръщаемост на активите (Return on Assets, ROA).
+    :param net_income: Нетната печалба
+    :param total_assets: Общите активи
+    :return: ROA
+    """
+    roa = net_income / total_assets
+    return roa
+
+def return_on_equity(net_income, shareholder_equity):
+    """
+    Изчислява възвръщаемост на собствения капитал (Return on Equity, ROE).
+    :param net_income: Нетната печалба
+    :param shareholder_equity: Собственият капитал
+    :return: ROE
+    """
+    roe = net_income / shareholder_equity
+    return roe
+
+def return_on_investment(investment_income, investment_value):
+    """
+    Изчислява коефициент на доходност на инвестициите (Return on Investment, ROI).
+    :param investment_income: Печалбата от инвестицията
+    :param investment_value: Стойността на инвестицията
+    :return: ROI
+    """
+    roi = investment_income / investment_value
+    return roi
+
+# Въвеждане на данни от потребителя
+net_income = float(input("Въведете нетната печалба: "))
+total_assets = float(input("Въведете общите активи: "))
+shareholder_equity = float(input("Въведете собствения капитал: "))
+investment_income = float(input("Въведете печалбата от инвестицията: "))
+investment_value = float(input("Въведете стойността на инвестицията: "))
+
+# Извикване на функциите
+roa = return_on_assets(net_income, total_assets)
+roe = return_on_equity(net_income, shareholder_equity)
+roi = return_on_investment(investment_income, investment_value)
+
+# Отпечатване на резултатите
+print("ROA: {:.2%}".format(roa))
+print("ROE: {:.2%}".format(roe))
+print("ROI: {:.2%}".format(roi))
