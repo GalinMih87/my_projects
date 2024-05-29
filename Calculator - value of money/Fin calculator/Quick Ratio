@@ -1,0 +1,45 @@
+"""
+Съотношението между най-ликвидните активи (като пари и вземания) и текущите пасиви. 
+Подобен на текущия коефициент, но по-строг показател за ликвидност.
+"""
+
+def quick_ratio(cash, accounts_receivable, current_liabilities):
+    """
+    Функция за изчисляване на Бърз коефициент (Quick Ratio).
+
+    Параметри:
+    cash (float): Наличното парично салдо.
+    accounts_receivable (float): Вземания.
+    current_liabilities (float): Текущи пасиви.
+
+    Връща:
+    float: Бърз коефициент.
+    """
+    if current_liabilities == 0:
+        return "Текущите пасиви не могат да бъдат нула."
+
+    quick_assets = cash + accounts_receivable
+    quick_ratio_value = quick_assets / current_liabilities
+
+    return quick_ratio_value
+
+# Въвеждане на данни от потребителя
+try:
+    cash = float(input("Въведете наличните парични средства (cash): "))
+    accounts_receivable = float(input("Въведете вземанията (accounts receivable): "))
+    current_liabilities = float(input("Въведете текущите пасиви (current liabilities): "))
+    
+    qr = quick_ratio(cash, accounts_receivable, current_liabilities)
+    print(f"Бърз коефициент: {qr:.2f}")
+except ValueError:
+    print("Моля, въведете валидни числови стойности.")
+except Exception as e:
+    print(f"Възникна грешка: {e}")
+
+
+"""
+Примерни данни
+cash = 50000
+accounts_receivable = 30000
+current_liabilities = 40000
+"""
