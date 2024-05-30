@@ -1,0 +1,87 @@
+class StockEvaluation:
+    def __init__(self, net_income, outstanding_shares, stock_price, total_revenue, total_assets, total_equity, total_debt, total_invested_capital, revenue_growth_rate, interest_expense, tax_expense, depreciation, amortization):
+        self.net_income = net_income
+        self.outstanding_shares = outstanding_shares
+        self.stock_price = stock_price
+        self.total_revenue = total_revenue
+        self.total_assets = total_assets
+        self.total_equity = total_equity
+        self.total_debt = total_debt
+        self.total_invested_capital = total_invested_capital
+        self.revenue_growth_rate = revenue_growth_rate
+        self.interest_expense = interest_expense
+        self.tax_expense = tax_expense
+        self.depreciation = depreciation
+        self.amortization = amortization
+
+    def calculate_eps(self):
+        return self.net_income / self.outstanding_shares
+
+    def calculate_pe_ratio(self):
+        eps = self.calculate_eps()
+        return self.stock_price / eps
+
+    def calculate_growth_rate(self):
+        return self.revenue_growth_rate
+
+    def calculate_peg_ratio(self):
+        pe_ratio = self.calculate_pe_ratio()
+        growth_rate = self.calculate_growth_rate()
+        return pe_ratio / (growth_rate * 100)
+
+    def calculate_roic(self):
+        return (self.net_income / self.total_invested_capital) * 100
+
+    def calculate_roa(self):
+        return (self.net_income / self.total_assets) * 100
+
+    def calculate_ps_ratio(self):
+        return self.stock_price / (self.total_revenue / self.outstanding_shares)
+
+    def calculate_ebitda(self):
+        return self.net_income + self.interest_expense + self.tax_expense + self.depreciation + self.amortization
+
+    def calculate_ebit(self):
+        return self.net_income + self.interest_expense + self.tax_expense
+
+    def calculate_ebt(self):
+        return self.net_income + self.interest_expense
+
+    def calculate_pb_ratio(self):
+        return self.stock_price / (self.total_equity / self.outstanding_shares)
+
+    def calculate_debt_to_equity(self):
+        return self.total_debt / self.total_equity
+
+def main():
+    net_income = float(input("Въведете чистата печалба (net income): "))
+    outstanding_shares = int(input("Въведете броя на акциите в обръщение (outstanding shares): "))
+    stock_price = float(input("Въведете цената на акцията (stock price): "))
+    total_revenue = float(input("Въведете общите приходи (total revenue): "))
+    total_assets = float(input("Въведете общите активи (total assets): "))
+    total_equity = float(input("Въведете общия собствен капитал (total equity): "))
+    total_debt = float(input("Въведете общия дълг (total debt): "))
+    total_invested_capital = float(input("Въведете общите инвестирани капитали (total invested capital): "))
+    revenue_growth_rate = float(input("Въведете темпа на растеж на приходите (revenue growth rate, като процент): ")) / 100
+    interest_expense = float(input("Въведете разходите за лихви (interest expense): "))
+    tax_expense = float(input("Въведете разходите за данъци (tax expense): "))
+    depreciation = float(input("Въведете амортизацията (depreciation): "))
+    amortization = float(input("Въведете амортизационните разходи (amortization): "))
+
+    stock = StockEvaluation(net_income, outstanding_shares, stock_price, total_revenue, total_assets, total_equity, total_debt, total_invested_capital, revenue_growth_rate, interest_expense, tax_expense, depreciation, amortization)
+
+    print(f"Earnings Per Share (EPS): {stock.calculate_eps():.2f}")
+    print(f"Price to Earnings (P/E) Ratio: {stock.calculate_pe_ratio():.2f}")
+    print(f"Growth Rate: {stock.calculate_growth_rate():.2%}")
+    print(f"PEG Ratio: {stock.calculate_peg_ratio():.2f}")
+    print(f"Return on Invested Capital (ROIC): {stock.calculate_roic():.2f}%")
+    print(f"Return on Assets (ROA): {stock.calculate_roa():.2f}%")
+    print(f"Price to Sales (P/S) Ratio: {stock.calculate_ps_ratio():.2f}")
+    print(f"EBITDA: {stock.calculate_ebitda():.2f}")
+    print(f"EBIT: {stock.calculate_ebit():.2f}")
+    print(f"EBT: {stock.calculate_ebt():.2f}")
+    print(f"Price to Book (P/B) Ratio: {stock.calculate_pb_ratio():.2f}")
+    print(f"Debt to Equity Ratio: {stock.calculate_debt_to_equity():.2f}")
+
+if __name__ == "__main__":
+    main()
