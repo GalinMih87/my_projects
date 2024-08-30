@@ -1,0 +1,35 @@
+def calculate_real_return(start_price, end_price, period_months, investment, dividend_yield, inflation_rate):
+    # Изчисляване на броя на закупените акции
+    shares_bought = investment / start_price
+
+    # Изчисляване на крайната стойност на инвестицията
+    final_value = shares_bought * end_price
+
+    # Изчисляване на капиталовия прираст
+    capital_gain = final_value - investment
+
+    # Изчисляване на общата сума на дивидентите за периода (годишен)
+    dividend_income = investment * (dividend_yield / 100) * (period_months / 12)
+
+    # Изчисляване на номиналната доходност
+    nominal_return = capital_gain + dividend_income
+
+    # Корекция за инфлация
+    inflation_adjusted_return = (1 + nominal_return / investment) / (1 + inflation_rate / 100) - 1
+
+    # Връщане на реалната доходност като число
+    return inflation_adjusted_return * investment
+
+# Въвеждане на данните от потребителя
+start_price = float(input("Въведете началната цена на акцията (в лева): "))
+end_price = float(input("Въведете крайната цена на акцията (в лева): "))
+period_months = int(input("Въведете периода в месеци: "))
+investment = float(input("Въведете вложената сума (в лева): "))
+dividend_yield = float(input("Въведете годишния Dividend Yield (в проценти): "))
+inflation_rate = float(input("Въведете инфлацията за периода (в проценти): "))
+
+# Пресмятане на реалната доходност
+real_return = calculate_real_return(start_price, end_price, period_months, investment, dividend_yield, inflation_rate)
+
+# Извеждане на резултата
+print(f"Реалната доходност на инвестицията е: {real_return:.2f} лева")
