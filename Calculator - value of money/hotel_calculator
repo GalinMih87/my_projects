@@ -1,0 +1,40 @@
+from datetime import datetime, timedelta
+
+def count_days_and_weekends(start_date_str, end_date_str):
+    # Преобразуване на входните стрингове в datetime обекти
+    start_date = datetime.strptime(start_date_str, '%d/%m/%Y')
+    end_date = datetime.strptime(end_date_str, '%d/%m/%Y')
+    
+    # Проверка дали датите са валидни
+    if start_date > end_date:
+        return "Началната дата не може да бъде по-късна от крайната дата."
+
+    # Изчисляване на общия брой дни
+    total_days = (end_date - start_date).days + 1
+
+    # Инициализация на броячите за петък и събота
+    fridays = 0
+    saturdays = 0
+
+    # Итерация през всички дни в диапазона
+    current_date = start_date
+    while current_date <= end_date:
+        if current_date.weekday() == 4:  # Петък (weekday() връща 4 за петък)
+            fridays += 1
+        elif current_date.weekday() == 5:  # Събота (weekday() връща 5 за събота)
+            saturdays += 1
+        current_date += timedelta(days=1)
+
+    return {
+        "Общ брой дни": total_days,
+        "Брой петъци": fridays,
+        "Брой съботи": saturdays
+    }
+
+# Получаване на входните данни от потребителя
+start_date = input("Въведете началната дата (формат dd/mm/yyyy): ")
+end_date = input("Въведете крайната дата (формат dd/mm/yyyy): ")
+
+# Извикване на функцията и отпечатване на резултатите
+result = count_days_and_weekends(start_date, end_date)
+print(result)
