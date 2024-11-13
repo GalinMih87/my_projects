@@ -1,0 +1,93 @@
+from treys import Deck, Card, Evaluator
+
+def get_card_input(prompt):
+    """Функция за въвеждане на карта от потребителя"""
+    while True:
+        try:
+            card_str = input(prompt).strip().upper()
+            card = Card.new(card_str)
+            return card
+        except Exception as e:
+            print(f"Невалидна карта: {e}. Опитай отново.")
+
+def calculate_probabilities(players_hands, community_cards, simulations=10000):
+    """Функция за изчисляване на вероятностите за печалба чрез симулации на Монте Карло"""
+    wins = [0] * len(players_hands)
+    ties = [0] * len(players_hands)
+    evaluator = Evaluator()
+
+    for _ in range(simulations):
+        deck = Deck()
+        # Премахни картите, които вече са изиграни
+        used_cards = sum(players_hands, []) + community_cards
+        for card in used_cards:
+            deck.cards.remove(card)
+        
+        # Допълни community cards с липсващите карти
+        future_cards = community_cards[:]
+        while len(future_cards) < 5:
+            future_cards.append(deck.draw(1))
+        
+        # Оценка на всяка ръка
+        scores = [evaluator.evaluate(future_cards, hand) for hand in players_hands]
+        min_score = min(scores)
+        
+        # Определяне на победителя
+        winners = [i for i, score in enumerate(scores) if score == min_score]
+        if len(winners) == 1:
+            wins[winners[0]] += 1
+        else:
+            for winner in winners:
+                ties[winner] += 1
+
+    total_simulations = simulations
+    probabilities = [(wins[i] + ties[i] / 2) / total_simulations for i in range(len(players_hands))]
+    return probabilities
+
+def main():
+    # Въвеждане на броя на играчите
+    num_players = int(input("Въведи броя на играчите: "))
+    
+    # Въвеждане на ръцете на играчите
+    players_hands = []
+    for i in range(num_players):
+        print(f"\nВъведи картите за Играч {i + 1}:")
+        card1 = get_card_input("  Въведи първа карта (пример: 'As' за Асо Пика): ")
+        card2 = get_card_input("  Въведи втора карта (пример: 'Kd' за Поп Каро): ")
+        players_hands.append([card1, card2])
+    
+    # Първоначални community cards (празни)
+    community_cards = []
+    
+    # Симулации след въвеждане на картите на играчите
+    probabilities = calculate_probabilities(players_hands, community_cards)
+    print("\nШансове за печалба след първоначалното раздаване:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+    
+    # Въвеждане на флопа
+    print("\nВъведи флопа (първите три карти на масата):")
+    for _ in range(3):
+        community_cards.append(get_card_input("  Въведи карта: "))
+    
+    probabilities = calculate_probabilities(players_hands, community_cards)
+    print("\nШансове за печалба след флопа:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+    
+    # Въвеждане на четвъртата карта (turn)
+    community_cards.append(get_card_input("\nВъведи четвъртата карта (turn): "))
+    probabilities = calculate_probabilities(players_hands, community_cards)
+    print("\nШансове за печалба след turn:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+    
+    # Въвеждане на петата карта (river)
+    community_cards.append(get_card_input("\nВъведи петата карта (river): "))
+    probabilities = calculate_probabilities(players_hands, community_cards)
+    print("\nОкончателни шансове за печалба след river:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+
+if __name__ == "__main__":
+    main()
