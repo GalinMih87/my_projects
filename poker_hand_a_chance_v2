@@ -1,0 +1,126 @@
+import random
+from collections import Counter
+
+# Създаваме тесте от 52 карти (без библиотеки)
+SUITS = ['h', 'd', 'c', 's']  # Hearts, Diamonds, Clubs, Spades
+RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+DECK = [rank + suit for rank in RANKS for suit in SUITS]
+
+def evaluate_hand(hand, community_cards):
+    """Оценяване на ръка по прост начин - в реален покер това е доста по-сложно.
+    Тук ще броим честотата на картите и ще оценяваме на базата на броя на чифтове, триплети и т.н."""
+    all_cards = hand + community_cards
+    ranks = [card[0] for card in all_cards]
+    rank_counts = Counter(ranks)
+    
+    # Проста оценка: повече еднакви карти са по-силни
+    pairs = sum(1 for count in rank_counts.values() if count == 2)
+    triples = sum(1 for count in rank_counts.values() if count == 3)
+    quads = sum(1 for count in rank_counts.values() if count == 4)
+    
+    # Определяне на силата на ръката - това е много опростено
+    if quads:
+        return 7  # Four of a Kind
+    elif triples and pairs:
+        return 6  # Full House
+    elif triples:
+        return 5  # Three of a Kind
+    elif pairs >= 2:
+        return 4  # Two Pair
+    elif pairs == 1:
+        return 3  # One Pair
+    else:
+        return 2  # High Card
+
+def get_card_input(prompt, used_cards):
+    """Функция за въвеждане на карта от потребителя, проверява дали картата е валидна и не е използвана"""
+    while True:
+        card = input(prompt).strip().upper()  # Уверяваме се, че всички букви са главни
+        if len(card) == 2 and card[0] in RANKS and card[1] in SUITS and card in DECK and card not in used_cards:
+            used_cards.add(card)  # Добавяне на картата в използваните
+            return card
+        print("Невалидна или вече използвана карта! Опитай отново.")
+
+def remove_used_cards(deck, used_cards):
+    """Премахва използваните карти от тестето"""
+    return [card for card in deck if card not in used_cards]
+
+def simulate(players_hands, community_cards, simulations=1000):
+    """Симулации на Монте Карло за определяне на шансовете за печалба"""
+    wins = [0] * len(players_hands)
+    
+    for _ in range(simulations):
+        deck = remove_used_cards(DECK, set(sum(players_hands, []) + community_cards))
+        random.shuffle(deck)
+        
+        # Допълване на community cards до 5
+        simulated_community = community_cards[:]
+        while len(simulated_community) < 5:
+            simulated_community.append(deck.pop())
+        
+        # Оценка на всяка ръка
+        scores = [evaluate_hand(hand, simulated_community) for hand in players_hands]
+        max_score = max(scores)
+        
+        # Определяне на победителя
+        winners = [i for i, score in enumerate(scores) if score == max_score]
+        if len(winners) == 1:
+            wins[winners[0]] += 1
+        else:
+            for winner in winners:
+                wins[winner] += 1 / len(winners)
+
+    total_simulations = simulations
+    probabilities = [win / total_simulations for win in wins]
+    return probabilities
+
+def main():
+    # Създаваме множество, за да следим използваните карти
+    used_cards = set()
+    
+    # Въвеждане на броя на играчите
+    num_players = int(input("Въведи броя на играчите: "))
+    
+    # Въвеждане на ръцете на играчите
+    players_hands = []
+    for i in range(num_players):
+        print(f"\nВъведи картите за Играч {i + 1}:")
+        card1 = get_card_input("  Въведи първа карта (пример: 'As' за Асо Пика): ", used_cards)
+        card2 = get_card_input("  Въведи втора карта (пример: 'Kd' за Поп Каро): ", used_cards)
+        players_hands.append([card1, card2])
+    
+    # Първоначални community cards (празни)
+    community_cards = []
+    
+    # Симулации след въвеждане на картите на играчите
+    probabilities = simulate(players_hands, community_cards)
+    print("\nШансове за печалба след първоначалното раздаване:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+    
+    # Въвеждане на флопа
+    print("\nВъведи флопа (първите три карти на масата):")
+    for _ in range(3):
+        community_cards.append(get_card_input("  Въведи карта: ", used_cards))
+    
+    probabilities = simulate(players_hands, community_cards)
+    print("\nШансове за печалба след флопа:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+    
+    # Въвеждане на четвъртата карта (turn)
+    community_cards.append(get_card_input("\nВъведи четвъртата карта (turn): ", used_cards))
+    probabilities = simulate(players_hands, community_cards)
+    print("\nШансове за печалба след turn:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+    
+    # Въвеждане на петата карта (river)
+    community_cards.append(get_card_input("\nВъведи петата карта (river): ", used_cards))
+    probabilities = simulate(players_hands, community_cards)
+    print("\nОкончателни шансове за печалба след river:")
+    for i, prob in enumerate(probabilities):
+        print(f"Играч {i + 1}: {prob * 100:.2f}% шанс за печалба")
+
+if __name__ == "__main__":
+    main()
