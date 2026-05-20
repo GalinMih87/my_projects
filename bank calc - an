@@ -1,0 +1,103 @@
+def calculate_annuity_payment(principal, annual_interest, months):
+    monthly_rate = annual_interest / 100 / 12
+
+    if monthly_rate == 0:
+        return principal / months
+
+    payment = principal * (
+        monthly_rate * (1 + monthly_rate) ** months
+    ) / (
+        (1 + monthly_rate) ** months - 1
+    )
+
+    return payment
+
+
+# ===== ВХОДНИ ДАННИ =====
+loan_amount = float(input("Въведи размер на кредита: "))
+annual_interest = float(input("Въведи годишна лихва (%): "))
+loan_years = int(input("Въведи срок на кредита (години): "))
+grace_period = int(input("Въведи гратисен период (месеци): "))
+
+# ===== ОСНОВНИ ИЗЧИСЛЕНИЯ =====
+total_months = loan_years * 12
+monthly_rate = annual_interest / 100 / 12
+
+remaining_balance = loan_amount
+
+# Месеци след гратисния период
+repayment_months = total_months - grace_period
+
+if repayment_months <= 0:
+    print("Грешка: Гратисният период не може да е по-дълъг от кредита.")
+    exit()
+
+# Анюитетна вноска след гратисния период
+monthly_payment = calculate_annuity_payment(
+    loan_amount,
+    annual_interest,
+    repayment_months
+)
+
+print("\n" + "=" * 90)
+print("ПОГАСИТЕЛЕН ПЛАН")
+print("=" * 90)
+
+header = (
+    f"{'Месец':<8}"
+    f"{'Вноска':<15}"
+    f"{'Главница':<15}"
+    f"{'Лихва':<15}"
+    f"{'Остатък':<15}"
+)
+
+print(header)
+print("-" * 90)
+
+total_interest_paid = 0
+
+# ===== ГРАТИСЕН ПЕРИОД =====
+for month in range(1, grace_period + 1):
+
+    interest_payment = remaining_balance * monthly_rate
+    principal_payment = 0
+    payment = interest_payment
+
+    total_interest_paid += interest_payment
+
+    print(
+        f"{month:<8}"
+        f"{payment:<15.2f}"
+        f"{principal_payment:<15.2f}"
+        f"{interest_payment:<15.2f}"
+        f"{remaining_balance:<15.2f}"
+    )
+
+# ===== НОРМАЛНИ ВНОСКИ =====
+for month in range(grace_period + 1, total_months + 1):
+
+    interest_payment = remaining_balance * monthly_rate
+    principal_payment = monthly_payment - interest_payment
+
+    remaining_balance -= principal_payment
+
+    # Корекция за последна вноска
+    if remaining_balance < 0:
+        principal_payment += remaining_balance
+        monthly_payment += remaining_balance
+        remaining_balance = 0
+
+    total_interest_paid += interest_payment
+
+    print(
+        f"{month:<8}"
+        f"{monthly_payment:<15.2f}"
+        f"{principal_payment:<15.2f}"
+        f"{interest_payment:<15.2f}"
+        f"{remaining_balance:<15.2f}"
+    )
+
+print("-" * 90)
+
+print(f"\nОбщо платена лихва: {total_interest_paid:.2f} лв")
+print(f"Общо платена сума: {(loan_amount + total_interest_paid):.2f} лв")
